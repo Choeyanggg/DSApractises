@@ -10,14 +10,10 @@ public:
                     temp+=str.back();
                     str.pop_back();
                 }str.pop_back();
-                reverse(temp.begin(),temp.end());
-                while(!temp.empty()){
-                    str+=temp.back();
-                    temp.pop_back();
-                }
+                str+=temp;
+                temp.clear();
             }
         }
-        //reverse(str.begin(),str.end());
         return str;
     }
 };
