@@ -11,7 +11,6 @@ public:
                     str.pop_back();
                 }str.pop_back();
                 str+=temp;
-                temp.clear();
             }
         }
         return str;
