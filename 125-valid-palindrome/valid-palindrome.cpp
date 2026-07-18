@@ -1,16 +1,18 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string res="";
-        string pal="";
-        for(char x: s){
-            if(isalpha(x) || isdigit(x)){
-                x=tolower(x);
-                res+=x;
-                pal+=x;
+        int start=0, end=s.length()-1;
+        while(start<end){
+            if(!isalpha(s[start]) && !isdigit(s[start])) start++;
+            else if(!isalpha(s[end]) && !isdigit(s[end])) end--;
+            else{
+                if(tolower(s[start])!=tolower(s[end])){
+                    return false;
+                }
+                start++;
+                end--;
             }
         }
-        reverse(pal.begin(),pal.end());
-        return pal==res;
+        return true;
     }
 };
