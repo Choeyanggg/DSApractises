@@ -11,16 +11,16 @@
  */
 class Solution {
 public:
-    int res=0;
-    int dfs(TreeNode* root){
-        if(!root) return 0;
-        int left=dfs(root->left);
-        int right=dfs(root->right);
-        res+=(abs(left-right));
-        return root->val+left+right;
-    }
+    int diff=0;
     int findTilt(TreeNode* root) {
         dfs(root);
-        return res;
+        return diff;
+    }
+    int dfs(TreeNode* root){
+        if(!root) return 0;
+        int leftmax=dfs(root->left);
+        int rightmax=dfs(root->right);
+        diff+=abs(leftmax-rightmax);
+        return root->val+rightmax+leftmax;
     }
 };
