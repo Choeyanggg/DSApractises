@@ -11,13 +11,18 @@
  */
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
+    bool dfs(TreeNode* root,int curr, int targetSum){
         if(!root) return 0;
-        targetSum-=root->val;
+        curr+=root->val;
         if(!root->left && !root->right){
-            return targetSum==0;
+            if(curr==targetSum) return true;
+            else return false;
         }
-        return hasPathSum(root->left,targetSum) ||
-            hasPathSum(root->right,targetSum);
+        return dfs(root->left,curr,targetSum) || 
+            dfs(root->right,curr,targetSum);
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        int curr=0;
+        return dfs(root,curr,targetSum);
     }
 };
