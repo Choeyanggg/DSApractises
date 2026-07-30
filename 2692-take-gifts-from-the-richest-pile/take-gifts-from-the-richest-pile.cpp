@@ -1,10 +1,7 @@
 class Solution {
 public:
     long long pickGifts(vector<int>& gifts, int k) {
-        priority_queue<long long>pq;
-        for(int x: gifts){
-            pq.push(x);
-        }
+        priority_queue<long long>pq(gifts.begin(),gifts.end());
         while(k>0){
             pq.push(floor(sqrt(pq.top())));
             pq.pop();
