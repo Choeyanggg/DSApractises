@@ -19,16 +19,14 @@ public:
         sort(cor.begin(),cor.end());
         int prev_col=INT_MIN;
         for(auto [col,row,val]:cor){
-            if(col==prev_col){
-                curr.push_back(val);
-            }else{
+            if(col!=prev_col){
                 if(!curr.empty()){
                     res.push_back(curr);
+                    curr.clear();
                 }
-                curr.clear();
-                curr.push_back(val);
-                prev_col=col;
             }
+            curr.push_back(val);
+            prev_col=col;
         }
         if(!curr.empty()){
             res.push_back(curr);
