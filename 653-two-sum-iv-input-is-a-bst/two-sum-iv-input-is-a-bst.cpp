@@ -15,7 +15,7 @@ public:
     bool findTarget(TreeNode* root, int k) {
         if(!root) return false;
         if(seen.find(k-root->val)!=seen.end()) return true;
-        else seen.insert(root->val);
+        seen.insert(root->val);
         return findTarget(root->left,k) ||
             findTarget(root->right,k);
     }
