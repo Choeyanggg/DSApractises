@@ -1,25 +1,24 @@
 class Solution {
 public:
-    bool dfs(int source,vector<vector<int>>& adj,vector<int>& visited,int destination){
+    bool dfs(vector<vector<int>>& adj, vector<bool> &visited,int source,int destination){
         if(source==destination) return true;
-        visited[source]=1;
+        visited[source]=true;
         for(auto a:adj[source]){
             if(!visited[a]){
-                if(dfs(a,adj,visited,destination)){
+                if(dfs(adj,visited,a,destination)){
                     return true;
                 }
             }
-        }
-        return false;
+        }return false;
     }
 
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        vector<vector<int>>adj(n);
+        vector<vector<int>> adj(n);
         for(auto e:edges){
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
-        vector<int> visited(n,0);
-        return dfs(source,adj,visited,destination);
+        vector<bool>visited(n,false);
+        return dfs(adj,visited,source,destination);
     }
 };
