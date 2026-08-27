@@ -1,18 +1,9 @@
 class Solution {
 public:
     int findCenter(vector<vector<int>>& edges) {
-        int n=edges.size()+1;
-        int center=-1;
-        vector<vector<int>> adj(n+1);
-        for(auto e:edges){
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
+        if(edges[0][0]==edges[1][0]||edges[0][0]==edges[1][1]){
+            return edges[0][0];
         }
-        for(int i=1;i<=n;i++){
-            if(adj[i].size()==n-1){
-                center=i;
-            }
-        }
-        return center;
+        return edges[0][1];
     }
 };
