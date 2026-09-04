@@ -11,30 +11,27 @@
  */
 class Solution {
 public:
-    void bfs(TreeNode* root, vector<vector<int>> &res){
-        if (!root) return ;
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> res;
         queue<TreeNode*> q;
+        int check=0;
         q.push(root);
-        int c=0;
         while(!q.empty()){
             int size=q.size();
-            vector<int> curr;
-            for(int i=0;i<size;i++){
+            vector<int> layer;
+            while(size--){
                 TreeNode* node=q.front();
-                curr.push_back(node->val);
                 q.pop();
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
+                layer.push_back(node->val);
             }
-            if(c%2!=0) reverse(curr.begin(),curr.end());
-            c++;
-            res.push_back(curr);
-        }
-    }
-
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>> res;
-        bfs(root,res);
-        return res;
+            if(check%2!=0){
+                reverse(layer.begin(),layer.end());
+            }
+            check++;
+            res.push_back(layer);
+        }return res;
     }
 };
