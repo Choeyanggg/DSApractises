@@ -3,46 +3,38 @@ public:
     int orangesRotting(vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
-        int ans=0;
-        queue<pair<pair<int,int>,int>> q;
-        vector<vector<int>> visited(n,vector<int>(m,0));
+        queue<pair<int,int>> q;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==2){
-                    q.push({{i,j},0});
-                    visited[i][j]=1;
+                    q.push({i,j});
                 }
             }
         }
+        int count=0;
+        vector<vector<int>> directions={{-1,0},{1,0},{0,-1},{0,1}};
         while(!q.empty()){
-            int r=q.front().first.first;
-            int c=q.front().first.second;
-            int t=q.front().second;
-            q.pop();
-            ans=max(ans,t);
-            if(r-1>=0 && grid[r-1][c]==1 && visited[r-1][c]==0){
-                q.push({{r-1,c},t+1});
-                visited[r-1][c]=1;
-            }
-            if(r+1<n && grid[r+1][c]==1 && visited[r+1][c]==0){
-                q.push({{r+1,c},t+1});
-                visited[r+1][c]=1;
-            }
-            if(c-1>=0 && grid[r][c-1]==1 && visited[r][c-1]==0){
-                q.push({{r,c-1},t+1});
-                visited[r][c-1]=1;
-            }
-            if(c+1<m && grid[r][c+1]==1 && visited[r][c+1]==0){
-                q.push({{r,c+1},t+1});
-                visited[r][c+1]=1;
+            int size=q.size();
+            count++;
+            while(size--){
+                auto[r,c]=q.front();
+                q.pop();
+                for(auto dir:directions){
+                    int nr=r+dir[0];
+                    int nc=c+dir[1];
+                    if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==1){
+                        grid[nr][nc]=2;
+                        q.push({nr,nc});
+                    }
+                }
             }
         }
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]==1 && visited[i][j]==0){
+                if(grid[i][j]==1){
                     return -1;
                 }
             }
-        }return ans;
+        }return count==0?0:count-1;
     }
 };
