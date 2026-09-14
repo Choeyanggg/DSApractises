@@ -11,30 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* prev=nullptr;
-    TreeNode* first=nullptr;
-    TreeNode* second=nullptr;
-    void dfs(TreeNode* root) {
-        if (!root)
-            return;
-
-        dfs(root->left);
-
-        if (prev && prev->val > root->val) {
-            if (!first)
-                first = prev;
-
-            second = root;
+    void dfs(TreeNode* root, TreeNode*& prev, TreeNode*& first, TreeNode*& second){
+        if(!root) return;
+        dfs(root->left,prev,first,second);
+        if(prev && prev->val>root->val){
+            if(!first){
+                first=prev;
+            }
+            second=root;
         }
-
-        prev = root;
-
-        dfs(root->right);
+        prev=root;
+        dfs(root->right,prev,first,second);
     }
-
     void recoverTree(TreeNode* root) {
-        dfs(root);
-
-        swap(first->val, second->val);
+        TreeNode* prev=nullptr;
+        TreeNode* first=nullptr;
+        TreeNode* second=nullptr;
+        dfs(root,prev,first,second);
+        swap(first->val,second->val);
     }
 };
