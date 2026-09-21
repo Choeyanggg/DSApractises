@@ -1,6 +1,7 @@
 class Solution {
 public:
     int solve(string s, int left, int right, int k){
+        if(right-left<k) return 0;
         unordered_map<char,int> mp;
         for(int i=left;i<right;i++){
             mp[s[i]]++;
