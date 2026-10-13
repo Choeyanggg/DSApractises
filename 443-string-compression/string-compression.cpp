@@ -6,19 +6,18 @@ public:
         int i=0;
         while(i<n){
             char c=chars[i];
-            int j=i;
-            while(j<n && chars[j]==c){
-                j++;
+            int count=0;
+            while(i<n && chars[i]==c){
+                i++;
+                count++;
             }
-            int freq=j-i;
             chars[write++]=c;
-            if(freq>1){
-                string s=to_string(freq);
+            if(count>1){
+                string s=to_string(count);
                 for(char c:s){
                     chars[write++]=c;
                 }
             }
-            i=j;
         }return write;
     }
 };
