@@ -1,15 +1,16 @@
 class Solution {
 public:
     bool isValid(string s) {
+        vector<char> start={'(','{','['};
         stack<int> st;
-        for(char x:s){
-            if(x=='(' || x=='{' || x=='['){
-                st.push(x);
+        for(char c:s){
+            if(find(start.begin(),start.end(),c)!=start.end()){
+                st.push(c);
             }else{
                 if(st.empty()) return false;
-                else if(st.top()=='(' && x==')') st.pop();
-                else if(st.top()=='{' && x=='}') st.pop();
-                else if(st.top()=='[' && x==']') st.pop();
+                else if(c==')' && st.top()=='(') st.pop();
+                else if(c==']' && st.top()=='[') st.pop();
+                else if(c=='}' && st.top()=='{') st.pop();
                 else return false;
             }
         }return st.empty();
